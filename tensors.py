@@ -57,3 +57,55 @@ print(tensor)
 
 t1 = torch.cat([tensor, tensor, tensor], dim = 1)
 print(t1)
+
+
+#arithmetic ops
+#computes matrix multiplacions between 2 tensors
+
+y1 = tensor @ tensor.T
+y2 = tensor.matmul(tensor.T)
+
+y3 = torch.rand_like(y1)
+torch.matmul(tensor, tensor.T, out=y3)
+
+#computes element wise product, z1 z2 z3 will have the same value
+z1 = tensor * tensor
+z2 = tensor.mul(tensor)
+
+z3 = torch.rand_like(tensor)
+torch.mul(tensor, tensor, out=z3)
+print(tensor)
+
+
+#if u have a single element tensor, you can convert it to a python numerical value with item()
+
+agg = tensor.sum()
+agg_item = agg.item()
+print(agg_item, type(agg_item))
+
+#operations that store the result into the operand are called in place, denoted by _ 
+
+print(f"{tensor} \n")
+tensor.add_(5)
+print(tensor)
+
+
+#tensors on cpu and numpy arrays can share the same memory location
+t = torch.ones(5)
+print(f"t: {t}")
+n = t.numpy()
+print(f"n: {n}")
+
+#changing tensor will also change the array
+t.add_(1)
+print(f"t: {t}")
+print(f"n: {n}")
+
+
+#numpy array to tensor
+n = np.ones(5)
+t = torch.from_numpy(n)
+
+np.add(n,1,out = n)
+print(f"t: {t}")
+print(f"n: {n}")
